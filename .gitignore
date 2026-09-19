@@ -1,0 +1,21 @@
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# Python 缓存文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 环境变量、密钥文件
+.env
+*.secret
+
+# Flask 临时文件
+instance/
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
