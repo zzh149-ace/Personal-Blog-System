@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h2>{{ article.title }}</h2>
+        <p>作者：{{ article.username }}</p>
+        <hr>
+        <p>{{ article.content }}</p>
+        {% if session.user_id == article.user_id %}
+        <form method="post" action="{{ url_for('del_article', article_id=article.id) }}" class="d-inline">
+            <button class="btn btn-danger" type="submit">删除文章</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<h4>评论区</h4>
+{% if session.user_id %}
+<form method="post" class="mb-4">
+    <textarea name="content" class="form-control mb-2" placeholder="写下评论" required></textarea>
+    <button class="btn btn-secondary">提交评论</button>
+</form>
+{% else %}
+<p class="text-muted">登录后才能发表评论</p>
+{% endif %}
+
+{% for c in comments %}
+<div class="border p-2 mb-2">
+    <b>{{ c.username }}</b>：{{ c.content }}
+</div>
+{% endfor %}
+{% endblock %}
