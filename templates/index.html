@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}文章列表{% endblock %}
+
+{% block content %}
+<h2>全部文章</h2>
+{% for art in articles %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h4 class="card-title">
+            <a href="{{ url_for('article_detail', article_id=art.id) }}">{{ art.title }}</a>
+        </h4>
+        <p class="card-text">作者：{{ art.username }}</p>
+        <p>{{ art.content[:100] }}...</p>
+    </div>
+</div>
+{% endfor %}
+
+{# 分页 #}
+<nav>
+    <ul class="pagination">
+        {% if page > 1 %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page-1) }}">上一页</a></li>
+        {% endif %}
+        <li class="page-item"><span class="page-link">第{{page}}页</span></li>
+        {% if page * page_size < total %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page+1) }}">下一页</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
